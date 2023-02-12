@@ -56,6 +56,8 @@ export function Level(props) {
     new Waifu("Aqua", "/img/waifus/aqua.png"),
     new Waifu("Hinata", "/img/waifus/hinata.jpg"),
     new Waifu("Robert", "/img/waifus/robert.jpg"),
+    new Waifu("Azuna", "/img/waifus/azuna.jpg"),
+    new Waifu("Zero Two", "/img/waifus/zero-two.jpg"),
   ];
 
   function pickRandomElements(arr, quantity) {
@@ -103,6 +105,20 @@ export function Level(props) {
         });
 
         break;
+      case 4:
+        setLevelContent({
+          arr: [...pickRandomElements(waifusArr, 10)],
+          backgroundImage: "url(/img/lvl3-background.jpg)",
+        });
+
+        break;
+      case 5:
+        setLevelContent({
+          arr: [...pickRandomElements(waifusArr, 12)],
+          backgroundImage: "url(/img/lvl3-background.jpg)",
+        });
+
+        break;
       default: {
       }
     }
@@ -120,6 +136,7 @@ export function Level(props) {
   useEffect(() => {
     if (currentLevel === 1) {
       if (score === 4) {
+        //4
         setCurrentLevel(2);
         setTimeout(() => {
           siii.play();
@@ -127,6 +144,7 @@ export function Level(props) {
       }
     } else if (currentLevel === 2) {
       if (score === 10) {
+        //10
         setCurrentLevel(3);
         setTimeout(() => {
           siii.play();
@@ -134,6 +152,23 @@ export function Level(props) {
       }
     } else if (currentLevel === 3) {
       if (score === 18) {
+        //18
+        setCurrentLevel(4);
+        setTimeout(() => {
+          siii.play();
+        }, 1000);
+      }
+    } else if (currentLevel === 4) {
+      if (score === 28) {
+        //28
+        setCurrentLevel(5);
+        setTimeout(() => {
+          siii.play();
+        }, 1000);
+      }
+    } else if (currentLevel === 5) {
+      if (score === 40) {
+        //28
         console.log("no more levels you won the game");
         setHasEnded(true);
         setTimeout(() => {
