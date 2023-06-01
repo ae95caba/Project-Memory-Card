@@ -1,14 +1,29 @@
 import { useState, useEffect } from "react";
 import { Card } from "./card";
+import { getList } from "../leaderboard/pocketbase";
 
 export function Level(props) {
+  //////////// leaderBoard /////////////////
+  const [leaderboard, setLeaderboard] = useState([]);
+
+  useEffect(() => {
+    getList().then((response) => {
+      setLeaderboard(response.items);
+    });
+  }, []);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [player, setPlayer] = useState("");
+
+  //////////// audio /////////////////
   const siii = new Audio("/sounds/siii.mp3");
   const victory = new Audio("/sounds/victory.mp3");
   const nya = new Audio("/sounds/nya.mp3");
   const tutorial = new Audio("sounds/tutorial.mp3");
+  ////////////////////////////////////////
+
   const [hasEnded, setHasEnded] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
-
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(score);
   const [currentLevel, setCurrentLevel] = useState(1);
@@ -222,6 +237,19 @@ export function Level(props) {
       >
         Reiniciar
       </button>
+      <div id="leaderboard">
+        <h1>Mejores: </h1>
+
+        <ul>
+          {leaderboard.map((item) => {
+            return (
+              <li>
+                {item.nombre} - {item.score}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <audio autoPlay="autoplay" hidden="hidden">
         <source src="/sounds/violin.mp3" type="audio/mp3" />
@@ -283,6 +311,11 @@ export function Level(props) {
         >
           Iniciar
         </button>
+        {isLoggedIn ? (
+          <p> Andre</p>
+        ) : (
+          <input type="text" placeholder="Ingresa tu nombre" autoFocus />
+        )}
       </div>
       <div id="end" style={{ display: `${hasEnded ? "flex" : "none"}` }}>
         <img src="img/win.gif" alt="win" />
